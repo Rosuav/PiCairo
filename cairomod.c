@@ -374,7 +374,7 @@ static void f_set_source(INT32 args)
     }
   else if (args == 3)
     {
-      if (Pike_sp[-3].type == PIKE_T_OBJECT)
+      if (TYPEOF(Pike_sp[-3]) == PIKE_T_OBJECT)
         {
           get_all_args("set_source", args, "%o%F%F", &o, &x, &y);
           pop_n_elems(args);
@@ -1033,7 +1033,7 @@ static void f_set_dash(INT32 args)
       dashes = malloc(dashes_array->size*sizeof(double)); // OOM
       for (i=0; i<dashes_array->size; ++i)
         {
-          if (dashes_array->item[i].type == PIKE_T_FLOAT)
+          if (TYPEOF(dashes_array->item[i]) == PIKE_T_FLOAT)
             dashes[i] = dashes_array->item[i].u.float_number;
           else
             dashes[i] = 0;
@@ -1290,8 +1290,6 @@ PIKE_MODULE_INIT
 {
   ptrdiff_t off;
   struct svalue prog;
-  prog.type = PIKE_T_PROGRAM;
-  prog.subtype = 0;
 
 #ifdef HAVE_CAIRO
 
@@ -1461,7 +1459,7 @@ PIKE_MODULE_INIT
   /* Cairo.GTK2Context */
   start_new_program();
   {
-    prog.u.program = cairo_mod_context_program;
+    SET_SVAL(prog, PIKE_T_PROGRAM, 0, program, cairo_mod_context_program);
     do_inherit(&prog, 0, NULL);
     ADD_FUNCTION("create", f_gtk2_create, tFunc(tObj,tVoid), ID_STATIC);
   }
