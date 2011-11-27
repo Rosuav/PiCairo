@@ -72,7 +72,7 @@ void cairo_pike_set_error (cairo_status_t err)
   struct svalue sv;
   push_int (err);
   push_object(clone_object(error_program, 1));
-  if(Pike_sp[-1].type != PIKE_T_OBJECT || Pike_sp[-1].u.object == NULL) {
+  if(TYPEOF(Pike_sp[-1]) != PIKE_T_OBJECT || Pike_sp[-1].u.object == NULL) {
     pop_stack();
     push_error("Failed to clone Cairo.Error object\n");
     return;
@@ -134,8 +134,8 @@ void cairo_mod_init_error()
 {
   ptrdiff_t off;
   struct svalue prog;
-  prog.type = PIKE_T_PROGRAM;
-  prog.subtype = 0;
+  SET_SVAL_TYPE(prog, PIKE_T_PROGRAM);
+  SET_SVAL_SUBTYPE(prog, 0);
 
   ADD_INT_CONSTANT("CAIRO_STATUS_SUCCESS", (INT_TYPE)CAIRO_STATUS_SUCCESS, 0);
   ADD_INT_CONSTANT("CAIRO_STATUS_NO_MEMORY", (INT_TYPE)CAIRO_STATUS_NO_MEMORY, 0);

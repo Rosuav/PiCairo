@@ -254,8 +254,6 @@ static void f_get_extend(INT32 args)
 void cairo_mod_init_pattern()
 {
   struct svalue prog;
-  prog.type = PIKE_T_PROGRAM;
-  prog.subtype = 0;
 
   ADD_INT_CONSTANT("CAIRO_EXTEND_NONE", (INT_TYPE)CAIRO_EXTEND_NONE, 0);
   ADD_INT_CONSTANT("CAIRO_EXTEND_REPEAT", (INT_TYPE)CAIRO_EXTEND_REPEAT, 0);
@@ -279,7 +277,7 @@ void cairo_mod_init_pattern()
 
   start_new_program();
   {
-    prog.u.program = cairo_mod_pattern_program;
+    SET_SVAL(prog, PIKE_T_PROGRAM, 0, program, cairo_mod_pattern_program);
     do_inherit(&prog, 0, NULL);
     ADD_FUNCTION("add_color_stop", f_add_color_stop, tFunc(tFloat tObj tOr(tFloat,tVoid), tObj), 0);
     ADD_FUNCTION("add_color_stop_rgb", f_add_color_stop_rgb, tFunc(tFloat tFloat tFloat tFloat, tObj), 0);
@@ -291,7 +289,7 @@ void cairo_mod_init_pattern()
 
   start_new_program();
   {
-    prog.u.program = cairo_mod_gradient_program;
+    SET_SVAL(prog, PIKE_T_PROGRAM, 0, program, cairo_mod_gradient_program);
     do_inherit(&prog, 0, NULL);
     ADD_FUNCTION("create", f_create_linear_gradient, tFunc(tFloat tFloat tFloat tFloat, tVoid), 0);
   }
@@ -301,7 +299,7 @@ void cairo_mod_init_pattern()
 
   start_new_program();
   {
-    prog.u.program = cairo_mod_gradient_program;
+    SET_SVAL(prog, PIKE_T_PROGRAM, 0, program, cairo_mod_gradient_program);
     do_inherit(&prog, 0, NULL);
     ADD_FUNCTION("create", f_create_radial_gradient, tFunc(tFloat tFloat tFloat tFloat tFloat tFloat, tVoid), 0);
   }
@@ -311,7 +309,7 @@ void cairo_mod_init_pattern()
 
   start_new_program();
   {
-    prog.u.program = cairo_mod_pattern_program;
+    SET_SVAL(prog, PIKE_T_PROGRAM, 0, program, cairo_mod_gradient_program);
     do_inherit(&prog, 0, NULL);
 
     ADD_FUNCTION("set_extend", f_set_extend, tFunc(tInt, tVoid), ID_PUBLIC);

@@ -300,8 +300,6 @@ static void f_image_surface_get_image(INT32 args)
 void cairo_mod_init_surface()
 {
   struct svalue prog;
-  prog.type = PIKE_T_PROGRAM;
-  prog.subtype = 0;
 
   /*! @decl constant CAIRO_FORMAT_ARGB32 
    *! Each pixel is a 32-bit quantity, with alpha in the upper 8
@@ -358,7 +356,7 @@ void cairo_mod_init_surface()
   /* Cairo.ImageSurface */
   start_new_program();
   {
-    prog.u.program = cairo_mod_surface_program;
+    SET_SVAL(prog, PIKE_T_PROGRAM, 0, program, cairo_mod_surface_program);
     do_inherit(&prog, 0, NULL);
     ADD_FUNCTION("get_width", f_image_surface_get_width, tFunc(tNone,tInt), ID_PUBLIC);
     ADD_FUNCTION("get_height", f_image_surface_get_height, tFunc(tNone,tInt), ID_PUBLIC);
