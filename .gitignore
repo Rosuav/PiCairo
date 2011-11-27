@@ -9,3 +9,6 @@ modlist_segment
 propagated_variables
 stamp-h
 module.so
+plib
+modref
+
