@@ -1255,7 +1255,7 @@ static void assert_gobject_program()
   }
 }
 
-/*! @decl void create()
+/*! @decl void create(GTK2.Widget)
  */
 static void f_gtk2_create(INT32 args)
 {
