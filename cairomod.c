@@ -574,7 +574,7 @@ static void f_new_path(INT32 args)
   ref_push_object(THIS_OBJ);
 }
 
-/*! @decl Cairo.Context rectangle()
+/*! @decl Cairo.Context rectangle(float x,float y,float width,float height)
  */
 static void f_rectangle(INT32 args)
 {
