@@ -1,0 +1,11 @@
+Makefile
+autom4te.cache
+*.o
+config*
+dependencies
+linker_options
+make_variables
+modlist_segment
+propagated_variables
+stamp-h
+module.so
