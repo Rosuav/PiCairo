@@ -406,7 +406,7 @@ int main()
 {
   GTK2.Widget drawing_area;
   GTK2.setup_gtk();
-  GTK2.Widget window = GTK2.Window(GTK2.GTK_WINDOW_TOPLEVEL);
+  GTK2.Widget window = GTK2.Window(GTK2.WINDOW_TOPLEVEL);
   window->set_title("Turtle graphics");
 
   foreach(indices(this_program()); ; mixed o)

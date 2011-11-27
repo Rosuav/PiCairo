@@ -79,7 +79,7 @@ void cairo_pike_set_error (cairo_status_t err)
   }
 
   assign_svalue (&throw_value, Pike_sp-1);
-  throw_severity = THROW_ERROR;
+  //throw_severity = THROW_ERROR;
 }
 
 /*! @decl void create( int code )
@@ -98,8 +98,7 @@ static void f_error_create (INT32 args)
     (struct error_obj *)(Pike_fp->current_storage + error_obj_off);
   struct generic_error_struct *go =
     (struct generic_error_struct *)
-    (get_storage (Pike_fp->current_object, generic_error_program) +
-     generic_error_offset);
+    get_storage (Pike_fp->current_object, generic_error_program);
 
   get_all_args ("Error", args, "%d", &status);
 

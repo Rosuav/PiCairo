@@ -459,9 +459,10 @@ void snippet_normalize(Cairo.Context ctx, int width, int height)
 }
 
 void
-handle_key_press(GTK2.Widget widget, array events, int dummy)
+handle_key_press(GTK2.Widget widget, array|object events, int dummy)
 {
-  switch(events[0]["keyval"])
+  if (arrayp(events)) events=events[0];
+  switch(events["keyval"])
     {
     case 'z':
       g_sample_functions_index = (g_sample_functions_index - 1) % sizeof(g_sample_functions);
@@ -560,7 +561,7 @@ int main()
 {
   GTK2.Widget drawing_area;
   GTK2.setup_gtk();
-  GTK2.Widget window = GTK2.Window(GTK2.GTK_WINDOW_TOPLEVEL);
+  GTK2.Widget window = GTK2.Window(GTK2.WINDOW_TOPLEVEL);
   window->set_default_size(WIDTH, HEIGHT);
   window->set_title("cairo samples from http://cairographics.org/samples/");
 

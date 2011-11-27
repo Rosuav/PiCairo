@@ -49,7 +49,7 @@ int main()
 {
   GTK2.Widget drawing_area;
   GTK2.setup_gtk();
-  GTK2.Widget window = GTK2.Window(GTK2.GTK_WINDOW_TOPLEVEL);
+  GTK2.Widget window = GTK2.Window(GTK2.WINDOW_TOPLEVEL);
   window->set_default_size(WIDTH, HEIGHT);
   window->set_title("cairo samples from http://cairographics.org/samples/");
   window->signal_connect("destroy", GTK2.main_quit);
