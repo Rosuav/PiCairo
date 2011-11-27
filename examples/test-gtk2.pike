@@ -15,44 +15,14 @@
 # error This program requires the Cairo module
 #endif
 
-void snippet_normalize(Cairo.Context ctx, int width, int height)
-{
-  ctx->identity_matrix();
-
-  Cairo.Matrix transform = Cairo.Matrix();
-  transform->init_identity();
-  transform->translate(width*0.05, height*0.05);
-  transform->scale(width*0.9, height*0.9);
-
-  ctx->set_line_width(0.03);
-  ctx->transform(transform);
-
-  ctx->move_to(0.0, 0.0);
-  ctx->line_to(1.0, 0);
-  ctx->line_to(1.0, 1.0);
-  ctx->line_to(0.0, 1.0);
-  ctx->close_path();
-  ctx->clip();
-}
-
 void draw(Cairo.Context ctx, int width, int height)
 {
-  snippet_normalize (ctx, width, height);
-
-  Cairo.Gradient grad = Cairo.LinearGradient (0.0, 0.0,  0.0, 1.0);
-  grad->add_color_stop_rgba (1.0, 0.0, 0.0, 0.0, 1.0);
-  grad->add_color_stop_rgba (0.0, 1.0, 1.0, 1.0, 1.0);
-  ctx->rectangle( 0, 0, 1, 1);
-  ctx->set_source(grad);
-  ctx->fill ();
-
-  grad = Cairo.RadialGradient(0.45, 0.4, 0.1,
-                              0.4,  0.4, 0.5);
-  grad->add_color_stop_rgba (0.0, 1.0, 1.0, 1.0, 1.0);
-  grad->add_color_stop_rgba (1.0, 0.0, 0.0, 0.0, 1.0);
-  ctx->set_source(grad);
-  ctx->arc ( 0.5, 0.5, 0.3, 0, 2 * Math.pi);
-  ctx->fill ();
+	ctx->rectangle(0,0,width,height); ctx->fill(); //Black background
+	ctx->move_to(5,16);
+	ctx->select_font_face("Courier",0,1);
+	ctx->set_font_size(16);
+	ctx->set_source(1,1,1); //White text
+	ctx->show_text("Hello, world!");
 }
 
 void handle_expose(GTK2.Widget widget, array events, int dummy)
