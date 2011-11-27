@@ -1,0 +1,9 @@
+
+ POST-1.0
+
+ * Surface error handling
+ * More documentation
+ * Filter on patterns
+ * Font/Text (wrapping only)
+ * Dirty handling of surfaces (needed, possisble?)
+ * Streaming data

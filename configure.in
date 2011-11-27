@@ -1,0 +1,58 @@
+AC_INIT(cairomod.c)
+AC_CONFIG_HEADER(config.h)
+AC_PREREQ(2.50)
+
+AC_MODULE_INIT()
+
+AC_PATH_PROG(PKG_CONFIG,${ac_tool_prefix}pkg-config,no)
+
+# lib, ok, fail
+AC_DEFUN([AC_CHECK_PKG],
+[
+  AC_MSG_CHECKING([for $1])
+  if ${ac_tool_prefix}pkg-config $1 2>/dev/null; then
+    AC_MSG_RESULT(yes)
+    CAIRO_CFLAGS="`\"\$CAIRO_CONFIG\" --cflags`"
+    CAIRO_CPPFLAGS="`\"\$CAIRO_CONFIG\" --cppflags`"
+    CAIRO_INCLUDES="`\"\$CAIRO_CONFIG\" --includes`"
+    CAIRO_LDFLAGS="`\"\$CAIRO_CONFIG\" --ldflags` -L`\"\$CAIRO_CONFIG\" --prefix`/lib"
+    CAIRO_LIBS="`\"\$CAIRO_CONFIG\" --libs`"
+  else
+    AC_MSG_RESULT(no)
+  fi
+])
+
+if test "$PKG_CONFIG" = "no" ; then
+  echo "*** pkg-config must be in your path!"
+else
+  AC_MSG_CHECKING([for gtk])
+  if ${ac_tool_prefix}pkg-config gtk+-2.0 2>/dev/null; then
+    AC_MSG_RESULT(yes)
+    AC_DEFINE([HAVE_GTK2], [], [Set if GTK is available])
+    GTK_CFLAGS="`${ac_tool_prefix}pkg-config gtk+-2.0 --cflags`"
+    GTK_LIBS="`${ac_tool_prefix}pkg-config gtk+-2.0 --libs`"
+  else
+    GTK_CFLAGS=
+    GTK_LIBS=
+    AC_MSG_RESULT(no)
+  fi
+  AC_MSG_CHECKING([for cairo])
+  if ${ac_tool_prefix}pkg-config cairo 2>/dev/null; then
+    AC_MSG_RESULT(yes)
+    AC_DEFINE([HAVE_CAIRO], [], [Set if Cairo is available])
+    CAIRO_CFLAGS="`${ac_tool_prefix}pkg-config cairo --cflags`"
+    CAIRO_LIBS="`${ac_tool_prefix}pkg-config cairo --libs`"
+  else
+    AC_MSG_RESULT(no)
+    CAIRO_CFLAGS=
+    CAIRO_LIBS=
+  fi
+fi
+
+AC_SUBST(CAIRO_LIBS)
+AC_SUBST(CAIRO_CFLAGS)
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
+
+AC_OUTPUT(Makefile, echo FOO >stamp-h)
+

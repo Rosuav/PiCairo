@@ -1,0 +1,28 @@
+@make_variables@
+MODNAME=Cairo
+LDSHARED=@LDSHARED@
+VPATH=@srcdir@
+OBJS=cairomod.o cairomisc.o cairosurface.o cairopath.o cairomatrix.o cairofont.o cairopattern.o cairoerror.o
+AUTODOC_SRC_IN=cairomod.c cairomisc.c cairosurface.c cairopath.c cairomatrix.c cairofont.c cairopattern.c cairoerror.c
+CONFIG_HEADERS=@CONFIG_HEADERS@
+MODULE_CFLAGS=@CAIRO_CFLAGS@ @GTK_CFLAGS@ -g
+MODULE_LDFLAGS=@LDFLAGS@ @LIBS@ @CAIRO_LIBS@ @GTK_LIBS@ -g
+MODDIR=
+CONFIG_HEADERS=@CONFIG_HEADERS@
+
+@dynamic_module_makefile@
+
+autodoc: module_modref
+
+# The depencency tracking doesn't work with the
+# GTK_CHECK_VERSION-macro.
+cairomod.o: cairomod.c cairomod.h Makefile
+cairomisc.o: cairomisc.c cairomod.h Makefile
+cairosurface.o: cairosurface.c cairomod.h Makefile
+cairopath.o: cairopath.c cairomod.h Makefile
+cairomatrix.o: cairomatrix.c cairomod.h Makefile
+cairofont.o: cairofont.c cairomod.h Makefile
+cairoerror.o: cairoerror.c cairomod.h Makefile
+cairopattern.o: cairopattern.c cairomod.h Makefile
+
+@dependencies@
